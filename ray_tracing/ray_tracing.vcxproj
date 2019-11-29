@@ -110,6 +110,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ray_tracing.cpp" />
+    <ClCompile Include="RT_analysis.cpp" />
+    <ClCompile Include="RT_base.cpp" />
+    <ClCompile Include="RT_stl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ray_tracing.h" />
+    <ClInclude Include="RT_analysis.h" />
+    <ClInclude Include="RT_base.h" />
+    <ClInclude Include="RT_stl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
