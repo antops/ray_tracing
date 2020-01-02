@@ -11,19 +11,24 @@ namespace Antops
 
 	RayTracing::~RayTracing()
 	{
+		if (calc_object_) {
+			delete calc_object_;
+		}
 	}
 
 	int RayTracing::CalcNormalOfLineMirror(
-		const std::vector<Vector3>& startPiont, 
-		const std::vector<Vector3>& normal, 
-		std::vector<Vector3>& intersection, 
-		std::vector<bool>& isIntersect,
+		const std::vector<Vector3>& startPiont,
+		const std::vector<Vector3>& direction,
+		std::vector<Vector3> &normal,
+		std::vector<Vector3> &intersection,
+		std::vector<bool> &isIntersect,
 		std::vector<double>& t)
 	{
 		if (!calc_object_) {
 			LOG(ERROR) << "Ray Tracing object is null";
 			return -1;
 		}
+		return calc_object_->CalcNormalOfLineMirror(startPiont, direction, normal, intersection, isIntersect, t);
 	}
 
 	int RayTracing::CalcReflect(const RayLineCluster & in, RayLineCluster & out)

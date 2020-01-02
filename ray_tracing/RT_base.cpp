@@ -10,6 +10,7 @@ namespace Antops
 	RTBase::RTBase()
 	{
 	}
+
 	RTBase::~RTBase()
 	{
 	}

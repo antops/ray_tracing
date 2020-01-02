@@ -15,6 +15,13 @@ namespace Antops
 		
 		virtual bool Init(const RayTracingOption& opt) = 0;
 		virtual int CalcReflect(const RayLineCluster & in, RayLineCluster & out) = 0;
+		virtual int CalcNormalOfLineMirror(
+			const std::vector<Vector3>& startPiont,
+			const std::vector<Vector3>& direction,
+			std::vector<Vector3> &normal,
+			std::vector<Vector3> &intersection,
+			std::vector<bool> &isIntersect,
+			std::vector<double>& t) = 0;
 
 		static RTBase* RTFactory(const RayTracingOption& opt);
 

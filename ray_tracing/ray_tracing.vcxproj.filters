@@ -13,19 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\api">
+      <UniqueIdentifier>{8b798e5d-5dab-4203-b58c-3e5882841007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\internal">
+      <UniqueIdentifier>{24ccbb65-fa49-4dcc-9bdb-1639d6bba72b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ray_tracing.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RT_base.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RT_stl.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\api</Filter>
     </ClInclude>
     <ClInclude Include="RT_analysis.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="RT_base.h">
+      <Filter>头文件\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="RT_stl.h">
+      <Filter>头文件\internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,5 +47,8 @@
     <ClCompile Include="RT_analysis.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

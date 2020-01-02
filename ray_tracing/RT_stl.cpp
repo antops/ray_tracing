@@ -1,16 +1,20 @@
 #include "RT_stl.h"
-
+#include "ray_tracing.h"
+#include <vtkPolyData.h>
 namespace Antops
 {
 	RTSTL::RTSTL()
 	{
 	}
+
 	RTSTL::~RTSTL()
 	{
 	}
+
 	bool RTSTL::Init(const RayTracingOption & opt)
 	{
-		return false;
+		opt_ = opt;
+		return true;
 	}
 
 	int RTSTL::CalcReflect(const RayLineCluster & in, RayLineCluster & out)
@@ -18,9 +22,25 @@ namespace Antops
 		return 0;
 	}
 
-	bool RTSTL::IsIntersect(const Vector3 & orig, const Vector3 & dir,
-		const Vector3 & v0, const Vector3 & v1, const Vector3 & v2, 
-		Vector3 & intersection, double & t)
+	int RTSTL::CalcNormalOfLineMirror(
+		const std::vector<Vector3>& startPiont,
+		const std::vector<Vector3>& direction,
+		std::vector<Vector3> &normal,
+		std::vector<Vector3> &intersection,
+		std::vector<bool> &isIntersect,
+		std::vector<double>& t)
+	{
+		return 0;
+	}
+
+	bool RTSTL::IsIntersect(
+		const Vector3 & orig, 
+		const Vector3 & dir,
+		const Vector3 & v0,
+		const Vector3 & v1, 
+		const Vector3 & v2, 
+		Vector3 & intersection,
+		double & t)
 	{
 		double u, v;
 		// E1
@@ -66,5 +86,50 @@ namespace Antops
 		intersection = orig + dir * t;
 
 		return true;
+	}
+
+	void RTSTL::CalcReflectByPolyData(
+		const Vector3 & startPiont,
+		const Vector3 & direction,
+		Vector3 & reflex,
+		Vector3 & intersection,
+		bool & isIntersect)
+	{
+		vtkPolyData* polyData = (vtkPolyData*)opt_.data;
+		int EleNum = polyData->GetNumberOfCells();
+		double t;
+		for (int i = 0; i < EleNum; i++)  //求与反射面的交点
+		{
+			vtkIdList * p;
+			p = polyData->GetCell(i)->GetPointIds();
+			double * point;
+			point = polyData->GetPoint(p->GetId(0));
+			Vector3 NodesXYZ1(point[0], point[1], point[2]);
+			point = polyData->GetPoint(p->GetId(1));
+			Vector3 NodesXYZ2(point[0], point[1], point[2]);
+			point = polyData->GetPoint(p->GetId(2));
+			Vector3 NodesXYZ3(point[0], point[1], point[2]);
+			if (this->IsIntersect(startPiont, direction, NodesXYZ1,
+				NodesXYZ2, NodesXYZ3, intersection, t))
+			{
+				if (t >= 0)
+				{
+					if (!IsInRestriction(intersection)) //不满足限制条件
+					{
+						intersection = startPiont; // 让交点等于起点 方向不变 避免对无交点时特殊处理
+						isIntersect = false;
+						return;
+					}
+					Vector3 tempa = NodesXYZ1 - NodesXYZ2;
+					Vector3 tempb = NodesXYZ1 - NodesXYZ3;
+					Vector3 n_light = tempa.Cross(tempb);  //法向量
+
+					isIntersect = true;
+					reflex = RayTracing::ReflectLight(direction, n_light);
+					return;
+				}
+			}
+		}
+		isIntersect = false;
 	}
 }

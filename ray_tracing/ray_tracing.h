@@ -6,11 +6,13 @@
 #include <vector>
 #include "../common/common/include/Vector3.h"
 #include "../common/common/include/coordinate.h"
+#include "../common/common/include/ray_line_cluster.h"
 #include "../common/common/include/component_param.h"
 
 using Common::Vector3;
 using Common::Coordinate;
 using Common::RestrictionParam;
+using Common::RayLineCluster;
 
 namespace Antops
 {
@@ -26,11 +28,6 @@ namespace Antops
 		std::vector<RestrictionParam> restriction;
 	};
 
-	struct RayLineCluster
-	{
-		std::vector<Vector3> start_point;  // 起点
-		std::vector<Vector3> normal_line;  // 法线
-	};
 	class RTBase;
 	class RayTracing
 	{
@@ -41,11 +38,13 @@ namespace Antops
 
 		// 计算直线与mirror相交，并输出交点与法线 (用于PVVA)
 		int CalcNormalOfLineMirror(
-			const std::vector<Vector3> &startPiont,  // 起点
-			const std::vector<Vector3> &normal,		 // 法线
-			std::vector<Vector3> &intersection,		 // 交点
-			std::vector<bool> &isIntersect,			 // 是否相交
-			std::vector<double> &t);				 //	t 值
+			const std::vector<Vector3>& startPiont, // 起点
+			const std::vector<Vector3>& direction,
+			std::vector<Vector3> &normal,          // 法线
+			std::vector<Vector3> &intersection,    // 交点
+			std::vector<bool> &isIntersect,        // 是否相交
+			std::vector<double>& t);               // t 值
+
 
 		// 计算反射，输入RayLineCluster，输出RayLineCluster (用于光追)
 		int CalcReflect(const RayLineCluster & in, RayLineCluster & out);
