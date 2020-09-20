@@ -24,27 +24,27 @@
     <ClInclude Include="ray_tracing.h">
       <Filter>头文件\api</Filter>
     </ClInclude>
-    <ClInclude Include="RT_analysis.h">
-      <Filter>头文件\internal</Filter>
+    <ClInclude Include="src\RT_analysis.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RT_base.h">
-      <Filter>头文件\internal</Filter>
+    <ClInclude Include="src\RT_base.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RT_stl.h">
-      <Filter>头文件\internal</Filter>
+    <ClInclude Include="src\RT_stl.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ray_tracing.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RT_base.cpp">
+    <ClCompile Include="src\RT_analysis.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RT_stl.cpp">
+    <ClCompile Include="src\RT_base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RT_analysis.cpp">
+    <ClCompile Include="src\RT_stl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

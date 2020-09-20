@@ -2,7 +2,7 @@
 #include "RT_analysis.h"
 #include "RT_stl.h"
 #include <memory>
-#include "../common/common/include/Vector3D.h"
+#include "../../common/include/Vector3D.h"
 
 using Common::Vector3D;
 namespace Antops
@@ -18,11 +18,11 @@ namespace Antops
 	RTBase * RTBase::RTFactory(const RayTracingOption & opt)
 	{
 		std::unique_ptr<RTBase> ptr;
-		if (!opt.param.empty()) {
+		if (!opt.algo_type == AnalysisType) {
 			// 解析
 			ptr.reset(new RTAnalysis());
 		}
-		else if (opt.data) {
+		else if (opt.algo_type == BaseSTL) {
 			ptr.reset(new RTSTL());
 		}
 		if (ptr->Init(opt)) return ptr.release();
@@ -37,7 +37,7 @@ namespace Antops
 	void RTBase::CalcMatrix()
 	{
 		if (calcmatrix_flag_) return;
-		const auto& restriction = opt_.restriction;
+		const auto& restriction = opt_.param->restriction;
 		int num = restriction.size() + 1;
 		R_translate_matrix_.resize(num);
 		R_rotat_matrix_.resize(num);
@@ -45,7 +45,7 @@ namespace Antops
 		translate_matrix_.resize(num);
 
 		// 世界坐标系转到模型的相对坐标系矩阵（逆矩阵）先旋转后平移
-		const auto& coor = opt_.coor;
+		const auto& coor = opt_.param->coor;
 		Vector3D RotateAsix(coor.rotate_axis.x, coor.rotate_axis.y, coor.rotate_axis.z);
 		R_rotat_matrix_[0] = Matrix4D::getRotateMatrix(-coor.rotate_theta, RotateAsix);
 		Vector3D rotatTranslate(coor.pos.x, coor.pos.y, coor.pos.z);
@@ -80,7 +80,7 @@ namespace Antops
 	bool RTBase::IsInRestriction(const Vector3 & intersectionGlobal)
 	{
 		if (opt_.is_ign_restriction) return true;
-		const auto& restriction = opt_.restriction;
+		const auto& restriction = opt_.param->restriction;
 		for (size_t i = 0; i < restriction.size(); i++)
 		{
 			const vector<double>& tempRestrictionData = restriction[i].param;

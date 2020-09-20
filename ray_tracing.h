@@ -4,35 +4,40 @@
 */
 #pragma once
 #include <vector>
-#include "../common/common/include/Vector3.h"
-#include "../common/common/include/coordinate.h"
-#include "../common/common/include/ray_line_cluster.h"
-#include "../common/common/include/component_param.h"
+#include "../common/include/Vector3.h"
+#include "../common/include/coordinate.h"
+#include "../common/include/ray_line_cluster.h"
+#include "../common/include/component_param.h"
 
 using Common::Vector3;
 using Common::Coordinate;
 using Common::RestrictionParam;
 using Common::RayLineCluster;
+using Common::ComponentParam;
 
 namespace Antops
-{
+{	
+	// 光追算法类型
+	enum TraceAlgoType {
+		DefaultType,
+		AnalysisType = 0,
+		BaseSTL = 1, // 最基本的stl计算，纯暴力算
+		CUDASTL = 2, // cuda加速的stl，需要支持cuda
+		
+	};
 	struct RayTracingOption
 	{
 		bool is_ign_non_intersection = false; // 是否忽略没有反射的点
 		bool is_ign_restriction = false;	  // 是否忽略限制条件
-		bool is_use_cuda = true;              // 是否使用cuda加速
-		void* data = nullptr;                 // stl 指针，目前使用vtk
-		//ComponentParam param;
-		std::vector<double> param;
-		Coordinate coor;
-		std::vector<RestrictionParam> restriction;
+		ComponentParam* param = nullptr;
+		TraceAlgoType algo_type = DefaultType;
 	};
 
 	class RTBase;
 	class RayTracing
 	{
 	public:
-		RayTracing(const RayTracingOption& param);
+		explicit RayTracing(const RayTracingOption& option);
 
 		virtual ~RayTracing();
 
@@ -44,7 +49,6 @@ namespace Antops
 			std::vector<Vector3> &intersection,    // 交点
 			std::vector<bool> &isIntersect,        // 是否相交
 			std::vector<double>& t);               // t 值
-
 
 		// 计算反射，输入RayLineCluster，输出RayLineCluster (用于光追)
 		int CalcReflect(const RayLineCluster & in, RayLineCluster & out);

@@ -66,7 +66,7 @@ namespace Antops
 		bool & isIntersect)
 	{
 		double t;
-		const std::vector<double>& tempData = opt_.param;
+		const std::vector<double>& tempData = opt_.param->param;
 
 
 		// 将世界坐标系转到模型的相对坐标系
@@ -121,7 +121,7 @@ namespace Antops
 		bool & isIntersect,
 		double & t)
 	{
-		const std::vector<double>& tempData = opt_.param;
+		const std::vector<double>& tempData = opt_.param->param;
 
 		// 将世界坐标系转到模型的相对坐标系
 		Vector3 tempStartPiont = R_translate_matrix_[0] * R_rotat_matrix_[0] * startPiont;

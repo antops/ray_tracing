@@ -41,14 +41,14 @@ namespace Antops
 
 		void RayCurvedSurface(
 			const std::vector<double>& a,
-			Vector3 n, 
-			Vector3 org, 
-			double & t1, 
+			Vector3 n,
+			Vector3 org,
+			double & t1,
 			double & t2,
-			bool & isOk1, 
+			bool & isOk1,
 			bool & isOk2,
-			Vector3 &interPoint1, 
-			Vector3 &interPoint2)
+			Vector3 &interPoint1,
+			Vector3 &interPoint2);
 
 	};
 }

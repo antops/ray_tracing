@@ -1,6 +1,6 @@
 #include "ray_tracing.h"
-#include "RT_base.h"
-#include "../common/common/include/MyLog.h"
+#include "src/RT_base.h"
+#include "../common/include/MyLog.h"
 namespace Antops
 {
 	RayTracing::RayTracing(const RayTracingOption & param)

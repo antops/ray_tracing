@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include "ray_tracing.h"
-#include "../common/common/include/Vector3.h"
-#include "../common/common/include/Matrix4D.h"
+#include "../ray_tracing.h"
+#include "../../common/include/Vector3.h"
+#include "../../common/include/Matrix4D.h"
 using Common::Vector3;
 using Common::Matrix4D;
 

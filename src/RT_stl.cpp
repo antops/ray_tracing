@@ -1,5 +1,5 @@
 #include "RT_stl.h"
-#include "ray_tracing.h"
+#include "../ray_tracing.h"
 #include <vtkPolyData.h>
 namespace Antops
 {
@@ -95,7 +95,7 @@ namespace Antops
 		Vector3 & intersection,
 		bool & isIntersect)
 	{
-		vtkPolyData* polyData = (vtkPolyData*)opt_.data;
+		vtkPolyData* polyData = (vtkPolyData*)opt_.param->data_ptr;
 		int EleNum = polyData->GetNumberOfCells();
 		double t;
 		for (int i = 0; i < EleNum; i++)  //求与反射面的交点
